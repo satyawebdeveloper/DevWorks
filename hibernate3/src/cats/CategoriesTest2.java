@@ -8,7 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-public class CategoriesTest1 {
+public class CategoriesTest2 {
 	public static void main(String[] args) {
 
 		Configuration cfg = new Configuration();
@@ -17,14 +17,13 @@ public class CategoriesTest1 {
 		SessionFactory factory = cfg.buildSessionFactory();
 		Session session = factory.openSession();
 		
-		String hql = "FROM Categories";
+		String hql = "INSERT INTO Categories (CategoryName) values ('xcvbxcvb')";
 		Query query = session.createQuery(hql);
-		List results = query.list();
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
 		
-		for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-			Categories cats = (Categories) iterator.next();
-			System.out.print("Category Name:" + cats.getCategoryName());
-		}
+		
+		
 		session.flush();
 		session.close();
 		factory.close();
